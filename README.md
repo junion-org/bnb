@@ -10,5 +10,5 @@ Bernoulli Naive Bayes
     ./bnb.py --predict [options] data model
 
 # test
-	news20       -> %
-	news20.scale -> %
+	news20       -> 80.8415%
+	news20.scale -> 80.1903%

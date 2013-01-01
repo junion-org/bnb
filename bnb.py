@@ -50,11 +50,11 @@ def train(y, x, alpha=1.0):
     p_c = {} # クラス事前確率
     for c, v in N_c.items():
         p_c[c] = log(v + alpha) - log(N + C * alpha)
-    q_wc = {} # 単語の独立確率分布
-    for w in n_wc.keys():
+    q_wc = {} # 単語のベルヌーイ分布
+    for w in N_wc.keys():
         q_wc[w] = {}
         for c in N_c.keys():
-            q_wc[w][c] = log(n_wc[w].get(c, 0.0) + alpha) - log(n_c.get(c, 0.0) + W * alpha)
+            q_wc[w][c] = log(N_wc[w].get(c, 0.0) + alpha) - log(N_c.get(c, 0.0) + 2 * alpha)
 
     # モデルを返す
     return { 'p_c': p_c, 'q_wc': q_wc }
