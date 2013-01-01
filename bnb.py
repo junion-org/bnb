@@ -30,25 +30,21 @@ def train(y, x, alpha=1.0):
     """
     学習
     """
-    N_c = {}  # クラスごとの文書数
-    n_c = {}  # クラスごとの単語数
-    n_wc = {} # 単語wのクラスcにおける出現数
+    N_c  = {}  # クラスごとの文書数
+    N_wc = {}  # クラス・単語ごとの文書数
 
     for i, c in enumerate(y):
         # クラスcの文書数をカウント
         N_c[c] = N_c.get(c, 0) + 1
-        for w, num in x[i].items():
-            # クラスcの単語数をカウント
-            n_c[c] = n_c.get(c, 0.0) + num
-            # 単語wのカウント
-            if w in n_wc:
-                n_wc[w][c] = n_wc[w].get(c, 0.0) + num
+        for w in x[i].keys():
+            # クラス・単語ごとの文書数をカウント
+            if w in N_wc:
+                N_wc[w][c] = N_wc[w].get(c, 0.0) + 1.0
             else:
-                n_wc[w] = { c: num }
+                N_wc[w] = { c: 1.0 }
 
     N = len(y)           # 全文書数
     C = len(N_c.keys())  # 全クラス数
-    W = len(n_wc.keys()) # 全単語種数
 
     # モデル構築
     p_c = {} # クラス事前確率
